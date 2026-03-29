@@ -14,55 +14,68 @@
     <span class="navbar-brand">💼 Reimbursement System</span>
 
     <div>
-        <span class="text-white me-3">Role: {{ role }}</span>
+        <span class="text-white me-3">
+            Welcome, {{ role|capitalize }} 👋
+        </span>
         <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
     </div>
 </nav>
 
 <div class="container mt-4">
 
-    <h3 class="text-center mb-4">📊 Dashboard</h3>
+    <h3 class="text-center mb-1">📊 Dashboard</h3>
+
+    <!-- 🔥 TAGLINE -->
+    <p class="text-center text-muted mb-4">
+        Smart Multi-Level Expense Approval System
+    </p>
 
     <!-- 🔥 STATS -->
     <div class="row text-center mb-4">
 
         <div class="col-md-3">
-            <div class="card bg-primary text-white p-3">
+            <div class="card bg-primary text-white p-3 shadow">
                 <h5>Total</h5>
-                <h3>{{ total }}</h3>
+                <h3>{{ total or 0 }}</h3>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card bg-success text-white p-3">
+            <div class="card bg-success text-white p-3 shadow">
                 <h5>Approved</h5>
-                <h3>{{ approved }}</h3>
+                <h3>{{ approved or 0 }}</h3>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card bg-warning text-dark p-3">
+            <div class="card bg-warning text-dark p-3 shadow">
                 <h5>Pending</h5>
-                <h3>{{ pending }}</h3>
+                <h3>{{ pending or 0 }}</h3>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card bg-danger text-white p-3">
+            <div class="card bg-danger text-white p-3 shadow">
                 <h5>Rejected</h5>
-                <h3>{{ rejected }}</h3>
+                <h3>{{ rejected or 0 }}</h3>
             </div>
         </div>
 
     </div>
 
     <!-- 🔥 CHART -->
-    <div class="card p-4 mb-4">
-        <canvas id="chart"></canvas>
+    <div class="card p-4 mb-4 text-center shadow">
+
+        <h5 class="mb-3">Expense Overview</h5>
+
+        <div style="width: 280px; margin: auto;">
+            <canvas id="chart"></canvas>
+        </div>
+
     </div>
 
     <!-- 🔥 ACTIONS -->
-    <div class="card p-4">
+    <div class="card p-4 shadow">
 
         <div class="d-grid gap-3">
 
@@ -70,8 +83,14 @@
 
             <a href="/my_expenses" class="btn btn-info text-white">📄 View Expenses</a>
 
-            {% if role == "manager" %}
-                <a href="/approve" class="btn btn-warning">✅ Approve</a>
+            <!-- 🔥 ALL ROLE APPROVAL ACCESS -->
+            {% if role in ["manager", "finance", "director", "admin"] %}
+                <a href="/approve" class="btn btn-warning">✅ Approval Panel</a>
+            {% endif %}
+
+            <!-- 🔥 ADMIN PANEL -->
+            {% if role == "admin" %}
+                <a href="/admin" class="btn btn-dark">⚙️ Admin Panel</a>
             {% endif %}
 
         </div>
@@ -84,13 +103,21 @@
 <script>
     const ctx = document.getElementById('chart');
 
+    const approved = {{ approved | default(0) }};
+    const pending = {{ pending | default(0) }};
+    const rejected = {{ rejected | default(0) }};
+
     new Chart(ctx, {
         type: 'pie',
         data: {
             labels: ['Approved', 'Pending', 'Rejected'],
             datasets: [{
-                data: [{{ approved }}, {{ pending }}, {{ rejected }}]
+                data: [approved, pending, rejected]
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true
         }
     });
 </script>

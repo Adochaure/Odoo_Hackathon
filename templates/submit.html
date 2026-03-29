@@ -13,25 +13,40 @@
 
     <div class="card shadow p-4">
 
-        <h2 class="text-center mb-4">💸 Submit Expense</h2>
+        <h2 class="text-center mb-3">💸 Submit Expense</h2>
+
+        <!-- 🔥 TAGLINE -->
+        <p class="text-center text-muted mb-4">
+            Add your expense details for approval workflow
+        </p>
 
         <form method="POST">
 
+            <!-- 💰 AMOUNT -->
             <div class="mb-3">
                 <label class="form-label">Amount</label>
                 <input type="number" name="amount" class="form-control" placeholder="Enter amount" required>
             </div>
 
+            <!-- 📂 CATEGORY -->
             <div class="mb-3">
                 <label class="form-label">Category</label>
                 <input type="text" name="category" class="form-control" placeholder="e.g. Food, Travel" required>
             </div>
 
+            <!-- 📝 DESCRIPTION -->
             <div class="mb-3">
                 <label class="form-label">Description</label>
                 <input type="text" name="description" class="form-control" placeholder="Enter details" required>
             </div>
 
+            <!-- 📅 DATE (NEW - VERY IMPORTANT) -->
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
+
+            <!-- 🚀 SUBMIT -->
             <button class="btn btn-success w-100">
                 Submit Expense
             </button>
