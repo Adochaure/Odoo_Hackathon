@@ -1,66 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Submit Expense</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Expense - Reimbursement System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body class="bg-light">
+<body class="page-wrapper">
 
-<div class="container mt-5">
+<div class="page-content">
+    <div class="container" style="max-width: 600px;">
 
-    <div class="card shadow p-4">
+        <!-- PAGE HEADER -->
+        <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+            <h1 class="page-title">💸 Submit Expense</h1>
+            <p class="page-subtitle">Add your expense details for approval workflow</p>
+        </div>
 
-        <h2 class="text-center mb-3">💸 Submit Expense</h2>
+        <!-- FORM CARD -->
+        <div class="card">
 
-        <!-- 🔥 TAGLINE -->
-        <p class="text-center text-muted mb-4">
-            Add your expense details for approval workflow
-        </p>
+            <form method="POST">
 
-        <form method="POST">
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" name="amount" step="0.01" class="form-control" placeholder="0.00" required>
+                </div>
 
-            <!-- 💰 AMOUNT -->
-            <div class="mb-3">
-                <label class="form-label">Amount</label>
-                <input type="number" name="amount" class="form-control" placeholder="Enter amount" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <input type="text" name="category" class="form-control" placeholder="e.g. Food, Travel, Office Supplies" required>
+                </div>
 
-            <!-- 📂 CATEGORY -->
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <input type="text" name="category" class="form-control" placeholder="e.g. Food, Travel" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" placeholder="Enter details about the expense" required></textarea>
+                </div>
 
-            <!-- 📝 DESCRIPTION -->
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <input type="text" name="description" class="form-control" placeholder="Enter details" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" name="date" class="form-control" required>
+                </div>
 
-            <!-- 📅 DATE (NEW - VERY IMPORTANT) -->
-            <div class="mb-3">
-                <label class="form-label">Date</label>
-                <input type="date" name="date" class="form-control" required>
-            </div>
+                <div class="card-footer" style="gap: var(--spacing-base);">
+                    <a href="/dashboard" class="btn btn-secondary">← Back</a>
+                    <button type="submit" class="btn btn-primary">Submit Expense</button>
+                </div>
 
-            <!-- 🚀 SUBMIT -->
-            <button class="btn btn-success w-100">
-                Submit Expense
-            </button>
+            </form>
 
-        </form>
-
-        <hr>
-
-        <a href="/dashboard" class="btn btn-secondary w-100">
-            ⬅ Back to Dashboard
-        </a>
+        </div>
 
     </div>
-
 </div>
 
 </body>
